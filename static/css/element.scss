@@ -1,0 +1,22 @@
+@import "./layout";
+
+@mixin list($direction:column) {
+  @include flex($direction)
+}
+
+@mixin font-overflow{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+@mixin panel($padding: .2rem,$margin:0 .2rem .14rem,$height: .48rem,$color: #000,$fontSize: .32rem,$title-margin-bottom: .22rem) {
+  margin: $margin;
+  color: $color;
+  >h3{
+    height: $height;
+    line-height: $height;
+    font-size: $fontSize;
+    margin-bottom: $title-margin-bottom;
+  }
+}

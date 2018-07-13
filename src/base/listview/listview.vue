@@ -101,6 +101,9 @@
         let anchorIndex = parseInt(this.touch.anchorIndex) + delta
         this._scrollTo(anchorIndex)
       },
+      refresh() {
+        this.$refs.listview.refresh()
+      },
       /*滚动时记录并更新this.scrollY的值*/
       scroll(pos){
         this.scrollY = pos.y

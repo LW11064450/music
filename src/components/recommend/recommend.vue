@@ -39,9 +39,10 @@
   /* import Bscroll from 'better-scroll'*/
   import Scroll from 'base/scroll/scroll'
   import Loading from 'base/loading/loading'
+  import { playlistMixin } from "common/js/mixin";
 
   export default {
-    name: "Recommend",
+    mixins: [playlistMixin],
     data () {
       return {
         recommends: [],
@@ -49,6 +50,11 @@
       }
     },
     methods: {
+      handlePlaylist(playlist) {
+        const bottom = playlist.length > 0 ? '60px' : ''
+        this.$refs.recommend.style.bottom = bottom
+        this.$refs.scroll.refresh()
+      },
       _getRecommend () {
         getRecommend().then((res) => {
           if (res.code === ERR_OK){
@@ -99,13 +105,12 @@
         font-size: $font-size-medium
         color: $color-theme
       .list-item
-        padding: 0 20px
         .recom-list-item
           a
             display: flex
             box-sizing: border-box
             align-items: center
-            margin-bottom: 20px
+            padding: 0 20px 20px
             .list-media
               flex: 0 0 60px
               width: 60px

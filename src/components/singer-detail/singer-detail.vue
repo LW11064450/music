@@ -8,8 +8,8 @@
   import MusicList from '../music-list/music-list'
   import { mapGetters } from 'vuex'
   import { getSingerDetail, getMusic } from "api/singer"
-  import { createSong } from "common/js/song";
-  import { ERR_OK } from "api/config";
+  import { createSong } from "common/js/song"
+  import { ERR_OK } from "api/config"
 
   export default {
     name: "",
@@ -19,7 +19,7 @@
         music: []
       }
     },
-    mounted() {
+    created() {
       this._getDetail()
     },
     methods: {

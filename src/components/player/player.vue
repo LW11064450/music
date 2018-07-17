@@ -1,5 +1,5 @@
 <template>
-  <div class="player" v-show="listlength">
+  <div class="player" v-show="playlist.length>0">
     <transition name="normal"
                 @enter="enter"
                 @after-enter="afterEnter"
@@ -491,6 +491,7 @@
       Scroll
     }
   }
+
 </script>
 
 <style lang="stylus" type="text/stylus" scoped>
@@ -553,13 +554,14 @@
           vertical-align: top
           width: 100%
           height: 0
-          padding-bottom:80%
+          padding-top:80%
           .cd-wrapper
             position: absolute
             width: 80%
             height: 100%
             left: 10%
             top: 0
+            box-sizing: border-box
             .cd
               width: 100%
               height: 100%
@@ -575,12 +577,12 @@
                 border: 10px solid rgba(255,255,255, .1)
                 box-sizing: border-box
                 border-radius: 50%
+                top: 0
+                left: 0
           .playing-lyric-wrapper
-            position: absolute
-            overflow: hidden
-            transform: translate3d(-50%, 0, 0)
-            left: 50%
-            bottom: -70px
+            width: 80%
+            margin: 30px auto 0 auto
+            text-align: center
             .playing-lyric
               height: 20px
               line-height: 20px

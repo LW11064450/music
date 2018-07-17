@@ -72,8 +72,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           console.log(e)
         })
       })
-      app.get('/api/getMusic', function (req, res) {
-        let url = 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg' // 原api
+      app.get('/api/getSongList', function (req, res) {
+        var url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg' // 原api
         axios.get(url, {
           headers: {
             referer: 'https://c.y.qq.com/',
@@ -84,6 +84,35 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           res.json(response.data)
         }).catch((e) => {
           console.log(e)
+        })
+      })
+      // 获得歌手对应的歌曲列表
+      app.get('/api/getSingerSongs', function(req, res) {
+        const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg';
+        axios.get(url, {
+          headers: {
+            referer: 'https://c.y.qq.com/',
+            host: 'c.y.qq.com'
+          },
+          params: req.query
+        }).then((response) => {
+          res.json(response.data);
+        }).catch((e) => {
+          console.log(e);
+        })
+      })
+      app.get('/api/getVKey', function(req, res) {
+        const url = 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg';
+        axios.get(url, {
+          headers: {
+            referer: 'https://c.y.qq.com/',
+            host: 'c.y.qq.com'
+          },
+          params: req.query
+        }).then((response) => {
+          res.json(response.data);
+        }).catch((e) => {
+          console.log(e);
         })
       })
       app.get('/api/lyric', function (req, res) {

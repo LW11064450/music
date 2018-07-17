@@ -35,7 +35,7 @@ export function getSingerDetail (singerId) {
   return jsonp(url, data, options)
 }
 
-export function getMusic (songmid) {
+/*export function getMusic (songmid) {
   const url = '/api/getMusic'
 
   const data = Object.assign({}, commonParams, {
@@ -56,4 +56,4 @@ export function getMusic (songmid) {
   }).then((res) => {
     return Promise.resolve(res.data)
   })
-}
+}*/

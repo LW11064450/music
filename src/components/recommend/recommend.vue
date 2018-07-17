@@ -9,8 +9,11 @@
           <h3 class="list-title">热门歌单推荐</h3>
           <div class="list-item">
             <ul class="item-wrap">
-              <li v-for="(item, index) in discList" class="recom-list-item" :key="index">
-                <a href="">
+              <li class="recom-list-item"
+                  v-for="(item, index) in discList"
+                  :key="index"
+                  @click="selectItem(item)"
+              >
                   <div class="list-media">
                     <img v-lazy="item.imgurl" alt="" class="item-img">
                   </div>
@@ -18,7 +21,6 @@
                     <h3 class="list-tit">{{item.creator.name}}</h3>
                     <p class="list-text">{{item.dissname}}</p>
                   </div>
-                </a>
               </li>
             </ul>
           </div>
@@ -28,12 +30,14 @@
         <loading></loading>
       </div>
     </scroll>
+    <router-view></router-view>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import { getRecommend, getDiscList } from 'api/recommend'
   import { ERR_OK } from 'api/config'
+  import { mapMutations } from 'vuex'
   import Slider from 'base/slider/slider'
 
   /* import Bscroll from 'better-scroll'*/
@@ -50,6 +54,12 @@
       }
     },
     methods: {
+      selectItem(item) {
+        this.$router.push({
+          path: `/recommend/${item.dissid}`
+        })
+        this.setDisc(item)
+      },
       handlePlaylist(playlist) {
         const bottom = playlist.length > 0 ? '60px' : ''
         this.$refs.recommend.style.bottom = bottom
@@ -70,7 +80,10 @@
             this.discList = res.data.list
           }
         })
-      }
+      },
+      ...mapMutations({
+        setDisc: 'SET_DISC'
+      })
     },
     mounted () {
       setTimeout(() => {
@@ -106,32 +119,31 @@
         color: $color-theme
       .list-item
         .recom-list-item
-          a
-            display: flex
-            box-sizing: border-box
-            align-items: center
-            padding: 0 20px 20px
-            .list-media
-              flex: 0 0 60px
+          display: flex
+          box-sizing: border-box
+          align-items: center
+          padding: 0 20px 20px
+          .list-media
+            flex: 0 0 60px
+            width: 60px
+            padding-right: 20px
+            .item-img
               width: 60px
-              padding-right: 20px
-              .item-img
-                width: 60px
-                height: 60px
-            .list-info
-              flex: 1
-              display: flex
-              flex-direction: column
-              justify-content: center
-              line-height: 20px
-              overflow: hidden
-              font-size: $font-size-medium
-              .list-tit
-                margin-bottom: 10px
-                color: $color-text
-                no-wrap()
-              .list-text
-                color: $color-text-d
+              height: 60px
+          .list-info
+            flex: 1
+            display: flex
+            flex-direction: column
+            justify-content: center
+            line-height: 20px
+            overflow: hidden
+            font-size: $font-size-medium
+            .list-tit
+              margin-bottom: 10px
+              color: $color-text
+              no-wrap()
+            .list-text
+              color: $color-text-d
       .loading-container
         position: absolute
         width: 100%

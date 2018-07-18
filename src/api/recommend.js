@@ -1,6 +1,7 @@
 import jsonp from 'common/js/jsonp'
 import {commonParams, options} from './config'
 import axios from 'axios'
+import {createSong, isVaildSong} from 'common/js/song'
 
 export function getRecommend () {
   const url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
@@ -55,4 +56,14 @@ export function getSongList (disstid) {
   }).then((res) => {
     return Promise.resolve(res.data)
   })
+}
+
+export function formatDiscSongs (songsList) {
+  let res = []
+  songsList.forEach(songItem => {
+    if (isVaildSong(songItem)) {
+      res.push(createSong(songItem))
+    }
+  })
+  return res
 }

@@ -98,6 +98,6 @@ export function filterSinger (singer) {
   }
 }
 
-/*export function isVaildSong (song) {
+export function isVaildSong (song) {
   return song.songid && song.albummid
-}*/
+}

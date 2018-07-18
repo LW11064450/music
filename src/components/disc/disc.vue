@@ -9,6 +9,7 @@
   import MusicList from '../music-list/music-list'
   import { getSongList } from "api/recommend"
   import { ERR_OK } from "api/config"
+  import {formatDiscSongs} from "api/recommend"
 
   export default {
     data() {
@@ -21,12 +22,16 @@
     },
     methods: {
       _getSongList(){
+        if (!this.disc.dissid) {
+          this.$router.push('/recommend')
+          return
+        }
         getSongList(this.disc.dissid).then((res) => {
           if (res.code === ERR_OK) {
-            console.log(res)
+            this.songs = formatDiscSongs(res.cdlist[0].songlist);
           }
         })
-      }
+      },
     },
     computed: {
       title() {

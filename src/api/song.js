@@ -3,7 +3,7 @@
  */
 import { commonParams } from './config'
 import axios from 'axios'
-import { createSong } from 'common/js/song'
+import { createSong, isVaildSong } from 'common/js/song'
 
 /**
  * 用于获取歌手对应歌曲列表的接口
@@ -85,9 +85,8 @@ export function getLyric (mid) {
 export function formatSongs (songsList) {
   let res = []
   songsList.forEach(songItem => {
-    let {musicData} = songItem
-    if (musicData.songid && musicData.albummid) {
-      res.push(createSong(musicData))
+    if (isVaildSong(songItem.musicData)) {
+      res.push(createSong(songItem.musicData))
     }
   })
   return res

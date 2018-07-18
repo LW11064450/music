@@ -24,3 +24,8 @@ export const currentSong = (state) => {
 export const disc = (state) => {
   return state.disc
 }
+
+/* 排行榜歌曲信息 */
+export const toplist = (state) => {
+  return state.toplist
+}

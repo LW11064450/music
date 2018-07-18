@@ -16,7 +16,9 @@ const state = {
   /* 当前播放歌曲索引 */
   currentIndex: -1,
   /* 推荐列表歌曲目录信息 */
-  disc: {}
+  disc: {},
+  /* 排行榜歌曲信息 */
+  toplist: {}
 }
 
 export default state

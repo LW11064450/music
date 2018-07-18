@@ -19,4 +19,8 @@ export const SET_PLAY_MODE = 'SET_PLAY_MODE'
 /* 当前播放歌曲索引 */
 export const SET_CURRENT_INDEX = 'SET_CURRENT_INDEX'
 
+/* 推荐列表歌曲目录信息 */
 export const SET_DISC = 'SET_DISC'
+
+/* 排行榜歌曲信息 */
+export const SET_TOP_LIST = 'SET_TOP_LIST'

@@ -58,8 +58,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       poll: config.dev.poll,
     },
     before(app) {
-      app.get('/api/getDiscList', function (req, res) {
-        var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg' // 原api
+      /*推荐歌单*/
+      app.get('/api/getDiscList', function(req, res) {
+        const url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg';
         axios.get(url, {
           headers: {
             referer: 'https://c.y.qq.com/',
@@ -67,13 +68,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           },
           params: req.query
         }).then((response) => {
-          res.json(response.data)
+          res.json(response.data);
         }).catch((e) => {
-          console.log(e)
+          console.log(e);
         })
       })
-      app.get('/api/getSongList', function (req, res) {
-        var url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg' // 原api
+      /*推荐歌曲列表*/
+      app.get('/api/getSongList', function(req, res) {
+        const url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg';
         axios.get(url, {
           headers: {
             referer: 'https://c.y.qq.com/',
@@ -81,9 +83,17 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           },
           params: req.query
         }).then((response) => {
-          res.json(response.data)
+          let ret = response.data;
+          if (typeof ret === 'string') {
+            const reg = /^\w+\(({.+})\)$/;
+            const matches = ret.match(reg);
+            if (matches) {
+              ret = JSON.parse(matches[1]);
+            }
+          }
+          res.json(ret);
         }).catch((e) => {
-          console.log(e)
+          console.log(e);
         })
       })
       // 获得歌手对应的歌曲列表
@@ -101,6 +111,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           console.log(e);
         })
       })
+      /*歌曲播放源Vkey*/
       app.get('/api/getVKey', function(req, res) {
         const url = 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg';
         axios.get(url, {
@@ -115,6 +126,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           console.log(e);
         })
       })
+      /*歌词*/
       app.get('/api/lyric', function (req, res) {
         let url = 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg' // 原api
         axios.get(url, {
